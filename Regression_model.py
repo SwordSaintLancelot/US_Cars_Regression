@@ -20,5 +20,8 @@ print(cars_data.head(10)) # Top 10 details in cars dataset
 
 column_names = cars_data.columns # Name of the columns
 
+for x in column_names:
+    if 'NaN' in cars_data[x]:
+        print(x)
 
 
