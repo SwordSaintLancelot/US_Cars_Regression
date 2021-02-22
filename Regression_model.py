@@ -7,6 +7,8 @@ Created on Fri Feb 19 18:50:45 2021
 
 import pandas as pd
 import numpy as np
+import matplotlib as plt
+import seaborn as sns
 
 
 
@@ -20,8 +22,20 @@ print(cars_data.head(10)) # Top 10 details in cars dataset
 
 column_names = cars_data.columns # Name of the columns
 
-for x in column_names:
-    if 'NaN' in cars_data[x]:
-        print(x)
+'''
+After reading through the data, we can figure out that
+the columns with names below are not relevant for finding out the price of a car:
+1. Unnamed: 0
+2. vin 
+3. lot
+4. country
+'''
+cars_data = cars_data.drop(columns = ['Unnamed: 0', 'vin', 'lot', 'country'])
 
+column_names = cars_data.columns  # Updated column names
 
+# Check if the dataset has some missing values
+
+cars_data.isna().sum().sum()
+
+# Create figures for all the distributions
