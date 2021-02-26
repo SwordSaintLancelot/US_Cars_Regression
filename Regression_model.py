@@ -7,7 +7,7 @@ Created on Fri Feb 19 18:50:45 2021
 
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 
@@ -38,4 +38,15 @@ column_names = cars_data.columns  # Updated column names
 
 cars_data.isna().sum().sum()
 
-# Create figures for all the distributions
+# Create figures for Price distributions
+plt.figure(figsize = (5,5))
+sns.displot(cars_data['price'], kind = 'kde').set_titles('Price Distribution')
+sns.displot(cars_data['price'], kind = 'hist').set_titles('Price Distribution')
+
+for name in column_names:
+    print(name)
+    print(cars_data[name].value_counts().size)
+    
+for name in column_names:
+    plt.figure(figsize = (7,7))
+    sns.barplot(x=name, y = cars_data['price'], data= cars_data)
