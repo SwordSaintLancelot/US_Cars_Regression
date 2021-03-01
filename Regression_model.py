@@ -45,8 +45,10 @@ sns.displot(cars_data['price'], kind = 'hist').set_titles('Price Distribution')
 
 for name in column_names:
     print(name)
+    print(cars_data[name].value_counts())
     print(cars_data[name].value_counts().size)
     
 for name in column_names:
     plt.figure(figsize = (7,7))
-    sns.barplot(x=name, y = cars_data['price'], data= cars_data)
+    # sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
+    sns.barplot(cars_data[name], x = name)
