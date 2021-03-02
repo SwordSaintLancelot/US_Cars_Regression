@@ -41,7 +41,7 @@ cars_data.isna().sum().sum()
 # Create figures for Price distributions
 plt.figure(figsize = (5,5))
 sns.displot(cars_data['price'], kind = 'kde').set_titles('Price Distribution')
-sns.displot(cars_data['price'], kind = 'hist').set_titles('Price Distribution')
+# sns.displot(cars_data['price'], kind = 'hist').set_titles('Price Distribution')
 
 for name in column_names:
     print(name)
@@ -49,6 +49,70 @@ for name in column_names:
     print(cars_data[name].value_counts().size)
     
 for name in column_names:
-    plt.figure(figsize = (7,7))
+    plt.figure(figsize = (15,15))
+    plt.title(name)
+    # Plotting bar graph
     cars_data[name].value_counts().plot(kind='bar', x=name)
-    # sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
+    # Plotting the box plot to figure out the average price of the cars.
+    sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
+    
+    
+'''
+Claculating the best features to create the ML models.
+We will visualize and calculate the importance of each feature.
+Along with this, we will make the changes to the dataset on the basis of 
+the importance calculated, i.e. group various entities into single 
+and eliminate the outliers.
+'''
+    
+# Combining the brands which have the least number of cars.
+# After looking at the pictorial representation earlier we ccan figure out that there are just a few number of cars
+# which have the most number of cars sold.
+other_brands = cars_data.brand.value_counts().index[15:]
+cars_data.brand = cars_data.brand.replace(other_brands, 'other_brands')
+
+# Similar to models, the number of models sold for each brand vary.
+# If we plot the price vs model for a single brand we can figure out that models also play a significant role.
+
+plt.figure(figsize=(15,15))
+plt.title('Price comparison of various model of Nissan')
+sns.boxplot(x = 'model', y = 'price', data = cars_data[cars_data.brand == 'nissan'])
+
+other_models = cars_data.model.value_counts().index[60:]
+cars_data.model = cars_data.model.replace(other_brands, 'other_brands')
+
+# Similarly we will work through all the features.
+
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
