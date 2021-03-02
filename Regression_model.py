@@ -50,5 +50,5 @@ for name in column_names:
     
 for name in column_names:
     plt.figure(figsize = (7,7))
+    cars_data[name].value_counts().plot(kind='bar', x=name)
     # sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
-    sns.barplot(cars_data[name], x = name)
