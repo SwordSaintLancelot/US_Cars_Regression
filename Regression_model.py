@@ -79,11 +79,26 @@ plt.title('Price comparison of various model of Nissan')
 sns.boxplot(x = 'model', y = 'price', data = cars_data[cars_data.brand == 'nissan'])
 
 other_models = cars_data.model.value_counts().index[60:]
-cars_data.model = cars_data.model.replace(other_brands, 'other_brands')
+cars_data.model = cars_data.model.replace(other_models, 'other_models')
 
 # Similarly we will work through all the features.
 
+other_colors = cars_data.color.value_counts().index[15:]
+cars_data.color = cars_data.color.replace(other_colors, 'other_colors')
 
+# Removing the outliers
+cars_data = cars_data[cars_data.price<50000]
+
+# Plotting dataset again
+
+column_names = cars_data.columns
+for name in column_names:
+    plt.figure(figsize = (15,15))
+    plt.title(name)
+    # Plotting bar graph
+    cars_data[name].value_counts().plot(kind='bar', x=name)
+    # Plotting the box plot to figure out the average price of the cars.
+    sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
 
 
     
