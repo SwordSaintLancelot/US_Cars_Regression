@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
 
 
 
@@ -110,7 +111,16 @@ for name in column_names:
 encoded_labels = pd.get_dummies(cars_data[['brand', 'model', 'title_status']],drop_first=True)
     
 # Normalization
-numerical_features = cars_data['mileage', 'price','year']
+numerical_features = cars_data[['mileage','year']]
+
+scaler = MinMaxScaler()
+scaled_numerical_features = scaler.fit_transform(numerical_features)
+
+
+data = np.concatenate((encoded_labels.values,scaled_numerical_features), axis = 1)
+
+X = data[:,:data.shape[1]-1]
+Y = np.array(cars_data['price'])
 
 
 
