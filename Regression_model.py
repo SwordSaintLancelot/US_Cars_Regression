@@ -86,6 +86,11 @@ cars_data.model = cars_data.model.replace(other_models, 'other_models')
 other_colors = cars_data.color.value_counts().index[15:]
 cars_data.color = cars_data.color.replace(other_colors, 'other_colors')
 
+# Calculating the age of car
+cars_data.year = 2021- cars_data.year
+
+
+
 # Removing the outliers
 cars_data = cars_data[cars_data.price<50000]
 
@@ -100,25 +105,12 @@ for name in column_names:
     # Plotting the box plot to figure out the average price of the cars.
     sns.boxplot(x=name, y = cars_data['price'], data= cars_data)
 
-
+# Encoding the label variables
+# the labels in the dataset are brand names, title status, model name
+encoded_labels = pd.get_dummies(cars_data[['brand', 'model', 'title_status']],drop_first=True)
     
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Normalization
+numerical_features = cars_data['mileage', 'price','year']
 
 
 
