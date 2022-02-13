@@ -13,12 +13,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import neg_mean_squared_error
+import os
 
-
+os.chdir('D:\Github')
 # Data Exploration
 
-cars_data = pd.read_csv(r'D:\GitHub\data\US_Cars_Regression\USA_cars_datasets.csv') # read dataset
+cars_data = pd.read_csv(r'.\data\US_Cars_Regression\USA_cars_datasets.csv') # read dataset
 
 dataset_shape = cars_data.shape
 
@@ -132,6 +133,3 @@ models = {'Random Forest': RandomForestRegressor(), 'Ada Boost': AdaBoostRegress
 for name, est in models.items():
     score = cross_val_score(est,X,Y,scoring = 'neg_mean_squared_error', cv = 10, n_jobs=2, verbose=10)
     print('The accuracy for {0} is {1}'.format(name, np.mean(score)))
-
-
-
