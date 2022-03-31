@@ -19,7 +19,7 @@ import os
 os.chdir('D:\Github')
 # Data Exploration
 
-cars_data = pd.read_csv(r'.\data\US_Cars_Regression\USA_cars_datasets.csv') # read dataset
+cars_data = pd.read_csv(r'..\data\USA_cars_datasets.csv') # read dataset
 
 dataset_shape = cars_data.shape
 

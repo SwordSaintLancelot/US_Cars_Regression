@@ -1,2 +1,4 @@
 # US_Cars_Regression
- Regression to find about US cars dataset
+
+Create a regression model to predict the prices of the cars in USA based on the given features.
+
