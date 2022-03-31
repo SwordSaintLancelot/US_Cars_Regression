@@ -10,10 +10,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import cross_val_score
-from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
-from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 # import os
 
 # os.chdir('D:\Github')
@@ -130,18 +130,23 @@ Y = np.array(cars_data['price'])
 x_train, x_test, y_train, y_test = train_test_split(X,Y, test_size=0.3, random_state=10)
 
 
-model1 = RandomForestRegressor(n_estimators=2000,verbose = 1, max_depth=40, n_jobs=5)
+model1 = RandomForestRegressor(n_estimators=500,verbose = 1, max_depth=40, n_jobs=5)
 
 model1.fit(x_train,y_train)
-
-
 scoring1 = model1.score(x_test,y_test)
 
 
-model2 = GradientBoostingRegressor(n_estimators=500, verbose = 1, random_state=15, max_depth=40)
+model2 = GradientBoostingRegressor(n_estimators=500, verbose = 1, random_state=15, max_depth=3)
 
 model2.fit(x_train,y_train)
 
 scoring2 = model2.score(x_test,y_test)
 
 
+model3 = LinearRegression(n_jobs = 4)
+model3.fit(x_train,y_train)
+
+scoring3 = model3.score(x_test,y_test)
+
+
+pred = model2.predict(x_test)
