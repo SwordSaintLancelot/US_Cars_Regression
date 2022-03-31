@@ -13,13 +13,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.metrics import neg_mean_squared_error
-import os
+from sklearn.model_selection import train_test_split
+# import os
 
-os.chdir('D:\Github')
+# os.chdir('D:\Github')
 # Data Exploration
 
-cars_data = pd.read_csv(r'..\data\USA_cars_datasets.csv') # read dataset
+cars_data = pd.read_csv(r'.\data\USA_cars_datasets.csv') # read dataset
 
 dataset_shape = cars_data.shape
 
@@ -126,10 +126,22 @@ data = np.concatenate((encoded_labels.values,scaled_numerical_features), axis = 
 X = data[:,:data.shape[1]-1]
 Y = np.array(cars_data['price'])
 
-models = {'Random Forest': RandomForestRegressor(), 'Ada Boost': AdaBoostRegressor(), \
-           'Linear Regression': LinearRegression(), 'Ridge Regression': Ridge(), \
-              'Gradient Boosting': GradientBoostingRegressor()}
 
-for name, est in models.items():
-    score = cross_val_score(est,X,Y,scoring = 'neg_mean_squared_error', cv = 10, n_jobs=2, verbose=10)
-    print('The accuracy for {0} is {1}'.format(name, np.mean(score)))
+x_train, x_test, y_train, y_test = train_test_split(X,Y, test_size=0.3, random_state=10)
+
+
+model1 = RandomForestRegressor(n_estimators=2000,verbose = 1, max_depth=40, n_jobs=5)
+
+model1.fit(x_train,y_train)
+
+
+scoring1 = model1.score(x_test,y_test)
+
+
+model2 = GradientBoostingRegressor(n_estimators=500, verbose = 1, random_state=15, max_depth=40)
+
+model2.fit(x_train,y_train)
+
+scoring2 = model2.score(x_test,y_test)
+
+
